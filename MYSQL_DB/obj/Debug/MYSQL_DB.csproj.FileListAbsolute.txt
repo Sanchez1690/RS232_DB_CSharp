@@ -1,0 +1,15 @@
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\MYSQL_DB.exe.config
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\MYSQL_DB.exe
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\MYSQL_DB.pdb
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\MySql.Data.dll
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\Google.Protobuf.dll
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\Renci.SshNet.dll
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\bin\Debug\MySql.Data.xml
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.csprojAssemblyReference.cache
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.Form1.resources
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.Properties.Resources.resources
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.csproj.GenerateResource.cache
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.csproj.CopyComplete
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.exe
+C:\Users\Luis Sanchez\source\repos\MYSQL_DB\obj\Debug\MYSQL_DB.pdb
