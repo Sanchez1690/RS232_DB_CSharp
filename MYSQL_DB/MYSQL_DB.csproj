@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\Conexion.cs" />
+    <Compile Include="Clases\Conexion_2.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

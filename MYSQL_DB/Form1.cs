@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.IO.Ports;
 using System.Threading;
+using System.Data.SqlClient;
 
 namespace MYSQL_DB
 {
@@ -18,11 +19,14 @@ namespace MYSQL_DB
         private delegate void DelegadoAcceso(string accion);
         private string strBufferIn;
         string dato2;
-        int x = 0;
+        string suplente;
+        int x = 0,y=0;
         string fact_1;
+        Clases.Conexion_2 c = new Clases.Conexion_2();
+        //Conexion_2 c = new Conexion_2();
         //private string strBufferOut;
 
-        Clases.Conexion conexion = new Clases.Conexion();
+        //Clases.Conexion conexion = new Clases.Conexion();
         public Form1()
         {
             InitializeComponent();
@@ -139,15 +143,21 @@ namespace MYSQL_DB
                     try
                     {
                         serialPort1.Open();
+                        y = 1;
                         Conectar_Port_Serial.Text = "Desconectar";
-                        timer1.Enabled = true;
+                        //timer1.Enabled = true;
+                        
                     }
                     catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
                 }
 
                 else if(Conectar_Port_Serial.Text == "Desconectar") 
                 {
+                    y = 0;
+                    Thread.Sleep(100);
+                    serialPort1.Dispose();
                     serialPort1.Close();
+                    c.desconectar();
                     Conectar_Port_Serial.Text = "Conectar";
                     LED_Conexion.BackColor = Color.White;
                     LED_Recepcion.BackColor = Color.White;
@@ -161,8 +171,15 @@ namespace MYSQL_DB
 
         private void AccesoForm(string accion) 
         {
-            strBufferIn = accion;
-            TX_Datos_RS232.Text =  strBufferIn;
+            if (y == 1) 
+            {
+                strBufferIn = accion;
+                suplente = strBufferIn;
+                serialPort1.DiscardInBuffer();
+                serialPort1.DiscardOutBuffer();
+                strBufferIn = "";
+            }
+            
         }
 
         private void AccesoInterrupcion(string accion) 
@@ -170,7 +187,7 @@ namespace MYSQL_DB
             DelegadoAcceso Var_DelegadoAcceso;
             Var_DelegadoAcceso = new DelegadoAcceso(AccesoForm);
             object[] arg = { accion };
-            base.Invoke(Var_DelegadoAcceso, arg);
+            base.BeginInvoke(Var_DelegadoAcceso, arg);
         }
 
         private void DatoRecibido(object sender, SerialDataReceivedEventArgs e)
@@ -179,17 +196,19 @@ namespace MYSQL_DB
             //TX_Datos_RS232.Text = TX_Datos_RS232.Text.Replace(System.Environment.NewLine, "replacement text");
             //MessageBox.Show(TX_Datos_RS232.Text);
             LED_Recepcion.BackColor = Color.Green;
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             /* string DataIn = serialPort1.ReadExisting();
              MessageBox.Show(DataIn);
              TX_Datos_RS232.Text = DataIn;*/
+            enviarBD();
         }
 
 
         private void enviarBD() 
         {
+            
             string[] separadas;
-            separadas = TX_Datos_RS232.Text.Split('\n');
+            separadas = suplente.Split('\n');
             //MessageBox.Show(TX_Datos_RS232.Text);
             //MessageBox.Show(separadas[0]);
             string dato = separadas[0];
@@ -222,6 +241,11 @@ namespace MYSQL_DB
                 if (x > 0) { 
                 if (dato != dato2)
                 {
+                        DateTime now = DateTime.Now;
+                        string fecha = now.ToString("dd MMMM yyyy hh:mm:ss tt");
+                        c.ingresar(fecha, dato);
+                        //MessageBox.Show(c.ingresar(fecha, dato));
+                        /*
                     try
                     {
                         if (conexion.AbrirConexion() == true)
@@ -248,9 +272,9 @@ namespace MYSQL_DB
                             conexion.CerrarConexion();
                         }
                     }
-                    catch (MySql.Data.MySqlClient.MySqlException ex) { MessageBox.Show(ex.Message); }
-                }
-                dato2 = dato;
+                    catch (MySql.Data.MySqlClient.MySqlException ex) { MessageBox.Show(ex.Message); }*/
+                    }
+                    dato2 = dato;
                 }
                 else 
                 {
@@ -264,7 +288,7 @@ namespace MYSQL_DB
                 separadas[0] = "0";
             }
             */
- 
+          
         }
 
         private void timer1_Tick(object sender, EventArgs e)
